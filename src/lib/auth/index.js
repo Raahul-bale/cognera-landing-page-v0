@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
-import { kv } from '@vercel/kv'
+import { Redis } from '@upstash/redis'
 
 // Helper to determine if we are in production/Vercel
 const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1'
@@ -35,11 +35,12 @@ const readUsers = async () => {
             return users || []
         } catch (error) {
             console.error('Redis error:', error)
+            // Fallback to empty array if Redis fails
             return []
         }
     }
 
-    // Local fallback
+    // Local fallback (development or if Redis not configured)
     ensureDataDir()
     if (!fs.existsSync(USERS_FILE)) {
         return []
@@ -61,11 +62,13 @@ const writeUsers = async (users) => {
             return
         } catch (error) {
             console.error('Redis write error:', error)
-            throw new Error('Database write failed')
+            // In production, if Redis fails, we should throw an error
+            // But provide a helpful message
+            throw new Error('Database write failed. Please check Redis configuration.')
         }
     }
 
-    // Local fallback
+    // Local fallback (development or if Redis not configured)
     ensureDataDir()
     try {
         fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2))
