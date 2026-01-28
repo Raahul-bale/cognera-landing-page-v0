@@ -38,11 +38,11 @@ export default function HomePage() {
         {/* Value Proposition */}
         <div className="py-4 sm:py-6">
           <ValueProposition 
-            title="The Three-Layered Approach"
+            title="The Cognera Three-Layer Behaviour Intelligence Framework"
             items={[
-              '1. Data Foundation: We capture precise time and access logs.',
-              '2. Insights Engine: We calculate Flow State Duration and Distraction Scores.',
-              '3. Action Framework: We enable real-time coaching and workflow optimization.'
+              'Data Foundation: Privacy-safe capture of session time, focus windows, and app-switching signals.',
+              'Insights Engine: Behavioural models derive flow state duration, distraction intensity, and recovery patterns.',
+              'Action Framework: Behavioural insights inform product decisions, experience optimization, and digital productivity improvements.'
             ]}
           />
         </div>

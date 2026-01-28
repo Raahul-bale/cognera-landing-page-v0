@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import Link from 'next/link'
 
 export default function Footer() {
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -106,6 +107,19 @@ export default function Footer() {
 
       {/* Footer Content - In Front */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Footer Links */}
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+            <Link 
+              href="/privacy" 
+              className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200 underline-offset-4 hover:underline"
+              style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+            >
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
+        
         {/* Copyright */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
           <p className="text-gray-400 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
