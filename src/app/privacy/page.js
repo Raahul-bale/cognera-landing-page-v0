@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 const tableOfContents = [
   { id: 'roles-definitions', title: '1. Roles and Definitions' },
@@ -28,32 +28,89 @@ const tableOfContents = [
 ]
 
 export default function PrivacyPage() {
+  const isScrollingRef = useRef(false)
+  
   useEffect(() => {
     const updateActiveSection = () => {
-      const contentBox = document.querySelector('.content-box')
-      if (!contentBox) return
-
-      const sections = tableOfContents.map(item => document.getElementById(item.id))
-      const tocLinks = document.querySelectorAll('.toc-link')
-
-      let activeIndex = 0
-      const scrollPosition = contentBox.scrollTop
-      const viewportOffset = 20 // Distance from top of content box to trigger highlight
-
-      // Find which section heading has scrolled past the viewport offset
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        if (section) {
-          const rect = section.getBoundingClientRect()
-          const contentBoxRect = contentBox.getBoundingClientRect()
-          const sectionTopRelative = rect.top - contentBoxRect.top + scrollPosition
-          
-          // If section has scrolled past the viewport offset point, it's active
-          if (scrollPosition + viewportOffset >= sectionTopRelative) {
-            activeIndex = i
-            break
+      // Don't auto-scroll sidebar if user is manually scrolling
+      if (isScrollingRef.current) return
+      // Get sections, preferring visible ones
+      const sections = tableOfContents.map(item => {
+        const elements = document.querySelectorAll(`#${item.id}`)
+        for (const el of elements) {
+          const rect = el.getBoundingClientRect()
+          const style = window.getComputedStyle(el)
+          // Only return element if it's actually visible
+          if (rect.width > 0 && rect.height > 0 && 
+              style.display !== 'none' && 
+              style.visibility !== 'hidden' &&
+              style.opacity !== '0') {
+            return el
           }
         }
+        // Fallback to first element if none are visible (shouldn't happen)
+        return elements[0] || null
+      })
+      
+      const tocLinks = document.querySelectorAll('.toc-link')
+
+      if (sections.length === 0 || tocLinks.length === 0) return
+
+      let activeIndex = 0
+      const viewportOffset = 180 // Distance from top of viewport to account for header
+
+      // Filter out null sections and get their indices
+      const validSections = sections
+        .map((section, index) => ({ section, index }))
+        .filter(({ section }) => section !== null)
+
+      if (validSections.length === 0) return
+
+      // Find the section that is currently most relevant
+      // Priority: section whose top is closest to but above the viewport offset
+      let bestMatch = null
+      let bestDistance = Infinity
+
+      for (const { section, index } of validSections) {
+        try {
+          const rect = section.getBoundingClientRect()
+          const distanceFromOffset = rect.top - viewportOffset
+
+          // If section has passed the offset (is above it) and is not too far above
+          if (rect.top <= viewportOffset && rect.top > -500) {
+            const distance = Math.abs(distanceFromOffset)
+            // Prefer sections that are closer to the offset
+            if (distance < bestDistance) {
+              bestDistance = distance
+              bestMatch = index
+            }
+          }
+        } catch (e) {
+          continue
+        }
+      }
+
+      // If we found a section that has passed the offset, use it
+      if (bestMatch !== null) {
+        activeIndex = bestMatch
+      } else {
+        // If no section has passed yet, find the one closest to the offset
+        let closestIndex = validSections[0].index
+        let closestDistance = Infinity
+
+        for (const { section, index } of validSections) {
+          try {
+            const rect = section.getBoundingClientRect()
+            const distance = Math.abs(rect.top - viewportOffset)
+            if (distance < closestDistance) {
+              closestDistance = distance
+              closestIndex = index
+            }
+          } catch (e) {
+            continue
+          }
+        }
+        activeIndex = closestIndex
       }
 
       // Update all links
@@ -71,19 +128,24 @@ export default function PrivacyPage() {
             indicator.classList.add('opacity-100')
           }
           
-          // Scroll the active link into view in the sidebar
+          // Only auto-scroll sidebar if link is significantly out of view (not on manual click)
+          if (!isScrollingRef.current) {
           const sidebar = link.closest('aside')
           if (sidebar) {
+              const sidebarContent = sidebar.querySelector('div')
+              if (sidebarContent) {
             const linkRect = link.getBoundingClientRect()
-            const sidebarRect = sidebar.getBoundingClientRect()
-            const linkTop = linkRect.top - sidebarRect.top + sidebar.scrollTop
-            
-            // Check if link is not fully visible
-            if (linkRect.top < sidebarRect.top + 20 || linkRect.bottom > sidebarRect.bottom - 20) {
-              sidebar.scrollTo({
+                const sidebarRect = sidebarContent.getBoundingClientRect()
+                
+                // Only scroll if link is significantly out of view (more than 50px)
+                if (linkRect.top < sidebarRect.top - 50 || linkRect.bottom > sidebarRect.bottom + 50) {
+                  const linkTop = linkRect.top - sidebarRect.top + sidebarContent.scrollTop
+                  sidebarContent.scrollTo({
                 top: linkTop - 20, // Offset to show some space above
                 behavior: 'smooth'
               })
+                }
+              }
             }
           }
         } else {
@@ -97,69 +159,70 @@ export default function PrivacyPage() {
       updateActiveSection()
     }, 100)
 
-    const contentBox = document.querySelector('.content-box')
-    if (contentBox) {
-      // Update on scroll of content box
-      contentBox.addEventListener('scroll', updateActiveSection, { passive: true })
+    // Update on window scroll
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
       window.addEventListener('resize', updateActiveSection)
       
       return () => {
-        contentBox.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('scroll', updateActiveSection)
         window.removeEventListener('resize', updateActiveSection)
-      }
     }
   }, [])
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id)
-    const contentBox = document.querySelector('.content-box')
-    if (element && contentBox) {
-      const contentBoxRect = contentBox.getBoundingClientRect()
+    // Set flag to prevent sidebar auto-scroll during manual navigation
+    isScrollingRef.current = true
+    
+    // Find the visible section element (handle mobile/desktop duplicates)
+    const elements = document.querySelectorAll(`#${id}`)
+    let element = null
+    
+    for (const el of elements) {
+      const rect = el.getBoundingClientRect()
+      const style = window.getComputedStyle(el)
+      // Only use element if it's actually visible
+      if (rect.width > 0 && rect.height > 0 && 
+          style.display !== 'none' && 
+          style.visibility !== 'hidden' &&
+          style.opacity !== '0') {
+        element = el
+        break
+      }
+    }
+    
+    // Fallback to first element if none are visible
+    if (!element && elements.length > 0) {
+      element = elements[0]
+    }
+    
+    if (element) {
+      const headerOffset = 180 // Account for fixed header
       const elementRect = element.getBoundingClientRect()
-      const offsetPosition = elementRect.top - contentBoxRect.top + contentBox.scrollTop - 20
-      contentBox.scrollTo({
-        top: offsetPosition,
+      const elementTop = elementRect.top + window.pageYOffset
+      const offsetPosition = elementTop - headerOffset
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition), // Ensure we don't scroll to negative position
         behavior: 'smooth'
       })
+      
+      // Reset flag after scroll completes
+      setTimeout(() => {
+        isScrollingRef.current = false
+      }, 1000) // Wait for smooth scroll to complete
+    } else {
+      isScrollingRef.current = false
     }
   }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'transparent' }}>
-      {/* Header Banner */}
-      <div 
-        className="w-full relative"
-        style={{ 
-          marginTop: '20px',
-          paddingTop: '30px',
-          paddingBottom: '30px',
-          backgroundColor: 'transparent',
-          zIndex: 10
-        }}
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative" style={{ zIndex: 10 }}>
-          <h1 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white text-center mb-3 sm:mb-4 md:mb-6 leading-tight" 
-            style={{ fontFamily: 'var(--font-inter), sans-serif' }}
-          >
-            Privacy Policy
-          </h1>
-          {/* Last Updated Date */}
-          <p 
-            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 text-center" 
-            style={{ fontFamily: 'var(--font-inter), sans-serif' }}
-          >
-            Last updated on 2nd January 2026
-          </p>
-        </div>
-      </div>
-
       {/* Combined Table of Contents and Content Section */}
-      <div className="w-full" style={{ marginTop: '0' }}>
-        <div className="flex flex-col md:flex-row md:h-[calc(100vh-180px)]">
-          {/* Table of Contents Sidebar - Hidden on mobile */}
-          <aside className="hidden md:block w-64 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-r-2 overflow-y-auto flex-shrink-0" style={{ borderColor: '#7440FA', borderRightWidth: '2px', height: 'calc(100vh - 180px)' }}>
-            <div className="p-6">
+      <div className="w-full relative">
+        <div className="flex flex-col md:flex-row">
+          {/* Table of Contents Sidebar - Fixed on desktop, hidden on mobile */}
+          <aside className="hidden md:block w-64 border-r-2 flex-shrink-0 fixed left-0" style={{ backgroundColor: 'transparent', borderColor: '#7440FA', borderRightWidth: '2px', top: '150px', bottom: '0', zIndex: 50 }}>
+            <div className="p-6 h-full overflow-y-auto">
               <h2 className="text-lg font-semibold text-white mb-4" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>Table of Contents</h2>
               <nav className="space-y-1">
                 {tableOfContents.map((item, index) => (
@@ -177,8 +240,33 @@ export default function PrivacyPage() {
             </div>
           </aside>
 
-          {/* Main Content */}
-          <main className="flex-1 w-full md:w-auto md:overflow-hidden md:h-[calc(100vh-180px)]" style={{ backgroundColor: '#080707' }}>
+          {/* Main Content - Scrollable with header banner and footer */}
+          <div className="flex-1 w-full md:ml-64" style={{ backgroundColor: 'transparent' }}>
+            {/* Header Banner - Part of scrollable content */}
+            <div 
+              className="w-full relative"
+              style={{ 
+                paddingTop: '30px',
+                paddingBottom: '30px',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+                <h1 
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white text-center mb-3 sm:mb-4 md:mb-6 leading-tight" 
+                  style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+                >
+                  Privacy Policy
+                </h1>
+                {/* Last Updated Date */}
+                <p 
+                  className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 text-center" 
+                  style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+                >
+                  Last updated on 2nd January 2026
+                </p>
+              </div>
+            </div>
             {/* Mobile: Simple flowing document layout */}
             <div className="md:hidden px-4 py-6 pb-12">
               <div className="max-w-4xl mx-auto">
@@ -417,9 +505,9 @@ export default function PrivacyPage() {
               </div>
             </div>
 
-            {/* Desktop: Scrollable content box with sidebar */}
-            <div className="hidden md:block h-full pl-2 pr-4 py-4">
-              <div className="content-box bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-lg p-8 h-full overflow-y-auto" style={{ border: '2px solid #7440FA', maxHeight: '100%' }}>
+            {/* Desktop: Scrollable content */}
+            <div className="hidden md:block px-0 py-4">
+              <div className="rounded-lg px-2 py-8 max-w-6xl mx-auto" style={{ backgroundColor: 'transparent', border: '2px solid #7440FA' }}>
               <div className="prose prose-lg max-w-none text-white/90">
               <p className="mb-4 text-justify" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>This Privacy Policy (&quot;Policy&quot;) is published by COGNERA DATA LABS PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, bearing CIN U62091TS2025PTC206136, and having its registered office at Kutbullapur,Hyderabad (&quot;Company&quot;). This Policy governs the manner in which our Company collects, receives, processes, stores, transmits, protects, uses, discloses, and retains data through its software development kits, applications, AI/ML products, cloud platforms, websites, and related technology solutions, including but not limited to our software development kit (&quot;SDK&quot; or &quot;Services&quot;).</p>
 
@@ -654,7 +742,7 @@ export default function PrivacyPage() {
               </div>
               </div>
             </div>
-          </main>
+          </div>
         </div>
       </div>
     </div>
