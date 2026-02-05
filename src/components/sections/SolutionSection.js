@@ -59,7 +59,7 @@ export default function SolutionSection() {
   return (
     <section className="solution-section max-w-6xl mx-auto mb-8 sm:mb-12 px-4 sm:px-6 pointer-events-none relative z-10">
       {/* Section heading */}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-8 sm:mb-10 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-8 sm:mb-10 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
         The Cognera Three-Layer Behaviour Intelligence Framework
       </h2>
       
@@ -82,7 +82,7 @@ export default function SolutionSection() {
                 </div>
                 {/* Layer number badge positioned absolutely */}
                 <div className={`absolute -top-2 -right-2 w-7 h-7 rounded-full ${layer.bgColor} border-2 border-white/20 flex items-center justify-center shadow-lg`}>
-                  <span className={`text-sm font-bold ${layer.iconColor}`} style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                  <span className={`text-sm font-bold ${layer.iconColor}`} style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                   {layer.number}
                 </span>
                 </div>
@@ -90,14 +90,14 @@ export default function SolutionSection() {
               {/* Layer title section */}
               <div>
                 <div className="text-xs sm:text-sm text-white/60 mb-1 font-semibold uppercase tracking-wider">Layer {layer.number}</div>
-                <h3 className="text-2xl sm:text-3xl text-white font-bold group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                <h3 className="text-2xl sm:text-3xl text-white font-bold group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
                 {layer.title}
               </h3>
               </div>
             </div>
             
             {/* Layer description */}
-            <p className="text-base sm:text-lg text-white/80 mb-4" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <p className="text-base sm:text-lg text-white/80 mb-4" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
               {layer.description}
             </p>
             
@@ -107,7 +107,7 @@ export default function SolutionSection() {
                 <li key={itemIndex} className="flex items-start gap-3">
                   {/* Colored bullet point matching layer theme */}
                   <div className={`flex-shrink-0 w-2 h-2 rounded-full ${layer.iconColor.replace('text-', 'bg-')} mt-2`}></div>
-                  <p className="text-base sm:text-lg text-white/90 leading-relaxed" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                  <p className="text-base sm:text-lg text-white/90 leading-relaxed" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                     {item}
                   </p>
                 </li>

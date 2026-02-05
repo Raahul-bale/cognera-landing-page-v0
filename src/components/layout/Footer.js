@@ -104,7 +104,7 @@ export default function Footer() {
         <h1
           className="text-8xl sm:text-9xl lg:text-[12rem] xl:text-[14rem] font-bold leading-none text-center"
           style={{
-            fontFamily: 'var(--font-inter), sans-serif',
+            fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif',
             background: 'linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.4))',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -130,7 +130,7 @@ export default function Footer() {
             <Link 
               href="/privacy" 
               className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200 underline-offset-4 hover:underline"
-              style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+              style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}
             >
               Privacy Policy
             </Link>
@@ -138,7 +138,7 @@ export default function Footer() {
             <Link 
               href="/terms" 
               className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200 underline-offset-4 hover:underline"
-              style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+              style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}
             >
               Terms and Conditions
             </Link>
@@ -147,7 +147,7 @@ export default function Footer() {
         
         {/* Copyright Section */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
-          <p className="text-gray-400 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <p className="text-gray-400 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
             &copy; 2025 Cognera Data Labs, Inc. All rights reserved. Cognera is a registered trademark of Cognera Data Labs, Inc.
           </p>
         </div>

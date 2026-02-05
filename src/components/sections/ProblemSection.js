@@ -69,11 +69,11 @@ export default function ProblemSection() {
           </div>
           {/* Main heading with gradient text effect */}
           <div className="flex-1">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl text-white mb-3 sm:mb-4 font-bold leading-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl text-white mb-3 sm:mb-4 font-bold leading-tight bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
               Analytics show what happened. Cognera shows how it happened.
             </h2>
             {/* Supporting description text */}
-            <p className="text-lg sm:text-xl text-white/70 mb-6 leading-relaxed" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <p className="text-lg sm:text-xl text-white/70 mb-6 leading-relaxed" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
               Traditional analytics stop at clicks, visits, and events. They do not explain behaviour.
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function ProblemSection() {
         
         {/* Challenges grid section */}
         <div className="mb-6">
-          <h3 className="text-xl sm:text-2xl text-white mb-4 font-semibold" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <h3 className="text-xl sm:text-2xl text-white mb-4 font-semibold" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
             {`Today's challenges:`}
           </h3>
           {/* Responsive grid: 1 column on mobile, 2 columns on desktop */}
@@ -94,7 +94,7 @@ export default function ProblemSection() {
                   {challenge.icon}
                 </div>
                 {/* Challenge text with hover color transition */}
-                <p className="text-base sm:text-lg text-white/90 leading-relaxed group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                <p className="text-base sm:text-lg text-white/90 leading-relaxed group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                   {challenge.text}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function ProblemSection() {
         
         {/* Bottom call-to-action message */}
         <div className="pt-6 border-t border-white/10">
-          <p className="text-xl sm:text-2xl text-white font-bold text-center" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+          <p className="text-xl sm:text-2xl text-white font-bold text-center" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
             Companies make decisions with half information.
           </p>
         </div>

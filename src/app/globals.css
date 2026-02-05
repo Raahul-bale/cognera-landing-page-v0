@@ -8,6 +8,9 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 
 html {
@@ -15,22 +18,40 @@ html {
   padding: 0;
 }
 
-/* DM Serif Text Font Classes */
-.dm-serif-text-regular {
-  font-family: "DM Serif Text", serif;
+/* IBM Plex Sans Font - Applied globally */
+* {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+}
+
+/* Roboto Font for Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 
-.dm-serif-text-regular-italic {
-  font-family: "DM Serif Text", serif;
+/* IBM Plex Sans Font Class */
+.ibm-plex-sans {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 
-/* Roboto Font for headings and paragraphs */
-h1, h2, h3, h4, h5, h6, p {
+/* Roboto Font Class */
+.roboto {
   font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 
 .cta-primary-button {

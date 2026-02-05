@@ -70,11 +70,11 @@ export default function HowItWorks() {
   return (
     <section className="how-it-works max-w-6xl mx-auto mb-8 sm:mb-12 px-4 sm:px-6 pointer-events-none relative z-10">
       {/* Main section heading */}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-8 sm:mb-10 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-8 sm:mb-10 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
         How Cognera Works
       </h2>
       {/* Subtitle */}
-      <p className="text-xl sm:text-2xl text-white/80 text-center mb-8 sm:mb-10 pointer-events-auto" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+      <p className="text-xl sm:text-2xl text-white/80 text-center mb-8 sm:mb-10 pointer-events-auto" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
         A Simple 4-Step Process
       </p>
       {/* Responsive grid: 1 column on mobile, 2 columns on desktop */}
@@ -99,17 +99,17 @@ export default function HowItWorks() {
                 </div>
                 {/* Step number badge */}
                 <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br ${step.gradient} border-2 border-[#0a0a0a] flex items-center justify-center shadow-lg`}>
-                  <span className="text-white text-sm font-bold" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                  <span className="text-white text-sm font-bold" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                     {step.number}
                   </span>
                 </div>
               </div>
               {/* Step text content */}
               <div className="flex-1 pt-2">
-                <h3 className="text-xl sm:text-2xl text-white mb-2 sm:mb-3 font-bold group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                <h3 className="text-xl sm:text-2xl text-white mb-2 sm:mb-3 font-bold group-hover:text-white transition-colors" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
                   {step.title}
                 </h3>
-                <p className="text-base sm:text-lg text-white/80 leading-relaxed group-hover:text-white/90 transition-colors" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                <p className="text-base sm:text-lg text-white/80 leading-relaxed group-hover:text-white/90 transition-colors" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                   {step.description}
                 </p>
               </div>

@@ -76,7 +76,7 @@ export default function FeatureGrid() {
   return (
     <section className="feature-grid max-w-7xl mx-auto mb-8 sm:mb-12 px-4 sm:px-6 pointer-events-none relative z-10">
       {/* Section heading */}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-4 sm:mb-6 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-white text-center mb-4 sm:mb-6 font-bold pointer-events-auto" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
         Understand Your Users Like Never Before
       </h2>
       {/* Responsive grid: 1 column (mobile), 2 columns (tablet), 3 columns (desktop) */}
@@ -92,11 +92,11 @@ export default function FeatureGrid() {
               {feature.icon}
             </div>
             {/* Feature title */}
-            <h3 className="text-xl sm:text-2xl text-white mb-2 sm:mb-3 font-bold" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <h3 className="text-xl sm:text-2xl text-white mb-2 sm:mb-3 font-bold" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
               {feature.title}
             </h3>
             {/* Feature description */}
-            <p className="text-base sm:text-lg text-white/80 leading-relaxed" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+            <p className="text-base sm:text-lg text-white/80 leading-relaxed" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
               {feature.description}
             </p>
           </div>

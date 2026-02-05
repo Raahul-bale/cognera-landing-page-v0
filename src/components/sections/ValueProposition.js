@@ -117,11 +117,11 @@ export default function ValueProposition({ title, items }) {
                 {/* Text content */}
                 <div className="flex-1">
                   {/* Item label/title */}
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
                     {label}
                   </h3>
                   {/* Item description with hover color transition */}
-                  <p className="text-base sm:text-lg leading-relaxed text-white/80 group-hover:text-white/90 transition-colors" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
+                  <p className="text-base sm:text-lg leading-relaxed text-white/80 group-hover:text-white/90 transition-colors" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
                     {description}
           </p>
                 </div>
