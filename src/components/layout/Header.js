@@ -7,6 +7,7 @@ export default function Header() {
   const [platformOpen, setPlatformOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <header
@@ -24,7 +25,7 @@ export default function Header() {
       >
         <div className="flex justify-between items-center py-4 sm:py-6 px-4 sm:px-6 lg:px-8 relative" style={{ overflow: 'visible' }}>
           {/* Logo */}
-          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity z-[203]">
             <img
               src="/img/android-chrome-512x512.png"
               alt="Cognera Logo"
@@ -35,8 +36,23 @@ export default function Header() {
             </h1>
           </Link>
 
-          {/* Navigation Menu */}
-          <nav className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors z-[203]"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          {/* Desktop Navigation Menu */}
+          <nav className="hidden lg:flex items-center gap-2 sm:gap-3 lg:gap-4">
             {/* Platform Dropdown */}
             <div 
               className="relative"
@@ -58,7 +74,7 @@ export default function Header() {
                 </svg>
               </button>
               {platformOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-4 z-[202]">
+                <div className="absolute top-full left-0 mt-2 w-64 max-w-[calc(100vw-2rem)] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-4 z-[202]">
                   {/* AI / INTELLIGENCE Section */}
                   <div className="mb-4">
                     <h3 className="text-xs font-semibold text-[#A78BFA] uppercase mb-2 px-4" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
@@ -190,7 +206,7 @@ export default function Header() {
                 </svg>
               </button>
               {solutionsOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-2 z-[202]">
+                <div className="absolute top-full left-0 mt-2 w-64 max-w-[calc(100vw-2rem)] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-2 z-[202]">
                   <Link 
                     href="/solutions/for-product-teams"
                     className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm"
@@ -253,7 +269,7 @@ export default function Header() {
                 </svg>
               </button>
               {resourcesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-2 z-[202]">
+                <div className="absolute top-full left-0 mt-2 w-56 max-w-[calc(100vw-2rem)] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-lg shadow-xl py-2 z-[202]">
                   <Link 
                     href="/docs"
                     className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm"
@@ -306,6 +322,134 @@ export default function Header() {
               Contact
             </Link>
           </nav>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <nav className="lg:hidden absolute top-full left-0 right-0 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-t border-white/10 shadow-xl z-[202] max-h-[calc(100vh-80px)] overflow-y-auto">
+              <div className="px-4 py-4 space-y-2">
+                {/* Platform Dropdown Mobile */}
+                <div className="border-b border-white/10 pb-2">
+                  <button
+                    onClick={() => setPlatformOpen(!platformOpen)}
+                    className="w-full flex items-center justify-between text-white hover:text-[#A78BFA] transition-colors text-base font-medium px-3 py-2 rounded-lg hover:bg-white/10"
+                    style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}
+                  >
+                    Platform
+                    <svg 
+                      className={`w-4 h-4 transition-transform ${platformOpen ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {platformOpen && (
+                    <div className="mt-2 pl-4 space-y-1">
+                      <div className="mb-3">
+                        <h3 className="text-xs font-semibold text-[#A78BFA] uppercase mb-2" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                          AI / INTELLIGENCE
+                        </h3>
+                        <Link href="/platform/ai-behavior-engine" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>AI Behavior Engine</Link>
+                        <Link href="/platform/behavior-insight-layer" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Behavior Insight Layer</Link>
+                        <Link href="/platform/cognera-mcp" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Cognera MCP</Link>
+                      </div>
+                      <div className="mb-3">
+                        <h3 className="text-xs font-semibold text-[#A78BFA] uppercase mb-2" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                          INSIGHTS
+                        </h3>
+                        <Link href="/platform/product-behavior-analytics" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Product Behavior Analytics</Link>
+                        <Link href="/platform/session-flow-analytics" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Session Flow Analytics</Link>
+                        <Link href="/platform/attention-distraction-mapping" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Attention & Distraction Mapping</Link>
+                        <Link href="/platform/behavior-cohorts" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Behavior Cohorts</Link>
+                      </div>
+                      <div className="mb-3">
+                        <h3 className="text-xs font-semibold text-[#A78BFA] uppercase mb-2" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                          ACTION
+                        </h3>
+                        <Link href="/platform/insight-driven-recommendations" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Insight-Driven Recommendations</Link>
+                        <Link href="/platform/experience-optimization-signals" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Experience Optimization Signals</Link>
+                      </div>
+                      <div>
+                        <h3 className="text-xs font-semibold text-[#A78BFA] uppercase mb-2" style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                          DATA & TRUST
+                        </h3>
+                        <Link href="/platform/data-governance" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Data Governance</Link>
+                        <Link href="/platform/security-privacy" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Security & Privacy</Link>
+                        <Link href="/platform/integrations" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Integrations</Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Solutions Dropdown Mobile */}
+                <div className="border-b border-white/10 pb-2">
+                  <button
+                    onClick={() => setSolutionsOpen(!solutionsOpen)}
+                    className="w-full flex items-center justify-between text-white hover:text-[#A78BFA] transition-colors text-base font-medium px-3 py-2 rounded-lg hover:bg-white/10"
+                    style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}
+                  >
+                    Solutions
+                    <svg 
+                      className={`w-4 h-4 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {solutionsOpen && (
+                    <div className="mt-2 pl-4 space-y-1">
+                      <Link href="/solutions/for-product-teams" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Product Teams</Link>
+                      <Link href="/solutions/for-marketing-teams" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Marketing Teams</Link>
+                      <Link href="/solutions/for-engineering-teams" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Engineering Teams</Link>
+                      <Link href="/solutions/for-executives" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Executives</Link>
+                      <Link href="/solutions/for-data-analytics-teams" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Data & Analytics Teams</Link>
+                      <Link href="/solutions/for-privacy-compliance-teams" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Privacy & Compliance Teams</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Resources Dropdown Mobile */}
+                <div className="border-b border-white/10 pb-2">
+                  <button
+                    onClick={() => setResourcesOpen(!resourcesOpen)}
+                    className="w-full flex items-center justify-between text-white hover:text-[#A78BFA] transition-colors text-base font-medium px-3 py-2 rounded-lg hover:bg-white/10"
+                    style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}
+                  >
+                    Resources
+                    <svg 
+                      className={`w-4 h-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {resourcesOpen && (
+                    <div className="mt-2 pl-4 space-y-1">
+                      <Link href="/docs" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Developer Docs</Link>
+                      <Link href="/support" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Support & Documentation</Link>
+                      <Link href="/resources" className="block px-3 py-2 text-white hover:bg-white/10 hover:text-[#A78BFA] transition-colors text-sm rounded-lg" onClick={() => setMobileMenuOpen(false)}>Resources</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Other Links Mobile */}
+                <Link href="/pricing" className="block text-white hover:text-[#A78BFA] transition-colors text-base font-medium px-3 py-2 rounded-lg hover:bg-white/10 border-b border-white/10" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                  Pricing
+                </Link>
+                <Link href="/demo" className="block text-white hover:text-[#A78BFA] transition-colors text-base font-medium px-3 py-2 rounded-lg hover:bg-white/10 border-b border-white/10" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                  Demo
+                </Link>
+                <Link href="/contact" className="block bg-white text-[#080707] hover:bg-[#A78BFA] hover:text-white transition-all text-base font-semibold px-4 py-3 rounded-lg text-center mt-2" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}>
+                  Contact
+                </Link>
+              </div>
+            </nav>
+          )}
         </div>
       </div>
     </header>
