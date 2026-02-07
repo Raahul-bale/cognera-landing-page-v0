@@ -16,7 +16,7 @@ export default function Layout({ children }) {
         <div className="pointer-events-auto relative z-[100]">
           <Header />
         </div>
-        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pointer-events-auto mt-20 sm:mt-24 relative z-10">
+        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pointer-events-auto mt-14 sm:mt-16 relative z-10">
           {children}
         </main>
         <div className="pointer-events-auto relative z-10 flex flex-col">

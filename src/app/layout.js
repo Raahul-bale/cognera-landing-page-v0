@@ -1,6 +1,6 @@
 import './globals.css'
 import ConditionalLayout from '@/components/ConditionalLayout'
-import { IBM_Plex_Sans, Roboto } from 'next/font/google'
+import { IBM_Plex_Sans, Roboto, Poppins } from 'next/font/google'
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -14,6 +14,13 @@ const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   style: ['normal', 'italic'],
   variable: '--font-roboto',
+})
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal'],
+  variable: '--font-poppins',
 })
 
 export const metadata = {
@@ -76,11 +83,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${ibmPlexSans.variable} ${roboto.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${ibmPlexSans.variable} ${roboto.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body suppressHydrationWarning>
         <ConditionalLayout>{children}</ConditionalLayout>

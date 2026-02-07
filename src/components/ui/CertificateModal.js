@@ -18,7 +18,7 @@ export default function CertificateModal({ certificate, isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-start justify-center p-4 pt-20 sm:pt-24 bg-black/80 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[200] flex items-start justify-center p-4 pt-14 sm:pt-16 bg-black/80 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
     >
       <div

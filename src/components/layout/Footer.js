@@ -90,38 +90,11 @@ export default function Footer() {
       className="text-white py-8 sm:py-12 mt-auto relative w-full z-10"
       style={{
         marginBottom: 0,
-        paddingBottom: '8rem',
-        minHeight: '700px',
         overflow: 'visible',
         background: 'linear-gradient(to bottom, #7440FA, #000000)'
       }}
     >
-      {/* Large Brand Name with Gradient - Behind Footer Content */}
-      <div
-        className="absolute inset-0 flex items-end justify-center pointer-events-none"
-        style={{ zIndex: 1, paddingBottom: '8rem', bottom: 0, overflow: 'visible' }}
-      >
-        <h1
-          className="text-8xl sm:text-9xl lg:text-[12rem] xl:text-[14rem] font-bold leading-none text-center"
-          style={{
-            fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif',
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.4))',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing: '-0.02em',
-            opacity: opacity,
-            transform: `translateY(${translateY}px)`,
-            transition: 'opacity 0.1s ease-out, transform 0.1s ease-out',
-            lineHeight: '1.1',
-            paddingBottom: '0.1em'
-          }}
-        >
-          Cognera™
-        </h1>
-      </div>
-
-      {/* Footer Content - In Front (above animated brand name) */}
+      {/* Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 mb-4 sm:mb-6">
           {/* Company Section */}
@@ -201,7 +174,7 @@ export default function Footer() {
         
 
         {/* Copyright Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
+        <div className="text-center mb-4 sm:mb-6">
           <p className="text-gray-400 text-xs sm:text-sm" style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}>
             &copy; 2025 Cognera Data Labs, Inc. All rights reserved. Cognera is a registered trademark of Cognera Data Labs, Inc.
           </p>
