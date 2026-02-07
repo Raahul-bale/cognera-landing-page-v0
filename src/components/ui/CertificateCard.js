@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import CertificateModal from './CertificateModal'
 
 export default function CertificateCard({ certificate }) {
   const [isHovered, setIsHovered] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <div
@@ -61,10 +63,8 @@ export default function CertificateCard({ certificate }) {
       {/* Hover Actions */}
       <div className={`flex gap-3 transition-all duration-300 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
         {certificate.pdfUrl && (
-          <Link
-            href={certificate.pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsModalOpen(true)}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#A78BFA]/20 hover:bg-[#A78BFA]/30 text-[#A78BFA] hover:text-white rounded-lg transition-all text-sm font-medium"
             style={{ fontFamily: 'var(--font-roboto), "Roboto", sans-serif' }}
           >
@@ -73,7 +73,7 @@ export default function CertificateCard({ certificate }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
             View Certificate
-          </Link>
+          </button>
         )}
         {certificate.verifyUrl && (
           <Link
@@ -90,6 +90,13 @@ export default function CertificateCard({ certificate }) {
           </Link>
         )}
       </div>
+
+      {/* Certificate Modal */}
+      <CertificateModal
+        certificate={certificate}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   )
 }

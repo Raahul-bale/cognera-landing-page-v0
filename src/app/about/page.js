@@ -6,7 +6,7 @@ import CertificateCard from '@/components/ui/CertificateCard'
 const certificates = [
   {
     id: 1,
-    title: 'DPIIT Startup India Recognition',
+    title: 'Startup India Recognition',
     certificateNo: 'DIPP242921',
     issuedDate: 'February 6, 2026',
     issuer: 'Department for Promotion of Industry and Internal Trade (DPIIT), Ministry of Commerce & Industry, Government of India',
@@ -17,7 +17,7 @@ const certificates = [
   },
   {
     id: 2,
-    title: 'Udyam MSME Registration',
+    title: 'Udyam Registration',
     certificateNo: 'UDYAM-TS-02-0296622',
     issuedDate: 'December 12, 2025',
     issuer: 'Ministry of Micro, Small & Medium Enterprises, Government of India',
@@ -51,22 +51,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Company Overview */}
-        <section className="mb-16 sm:mb-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-white/10 rounded-xl p-6 sm:p-8">
-              <p 
-                className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4"
-                style={{ fontFamily: 'var(--font-ibm-plex-sans), "IBM Plex Sans", sans-serif' }}
-              >
-                Cognera Data Labs Private Limited is a forward-thinking technology firm dedicated to pushing the boundaries 
-                of data intelligence and providing scalable, high-impact solutions. Founded by a Computer Science Engineer 
-                from Malla Reddy University with deep expertise in the MERN stack, Java, and DSA, the company bridges the 
-                gap between raw data and actionable insights.
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* Accreditation & Recognition Gallery */}
         <section className="mb-16 sm:mb-20">
